@@ -40,3 +40,27 @@ void print_zero(File file, uint8_t num_byte){
 }
 
 
+
+String getNextFileSD(String currentFile){
+  String filename="";
+  File root = SD.open("/");
+  while (true) {
+    File entry =  root.openNextFile();
+    if (!entry) { break; }
+    if(String(entry.name())==currentFile){
+        File entry = root.openNextFile();
+        if (!entry) { 
+            root = SD.open("/");
+            entry = root.openNextFile();
+        }
+        Serial.println("Entry name: ");
+        Serial.print(entry.name());
+        Serial.println();
+        filename=entry.name();
+        entry.close();
+        break;
+    }
+    entry.close();
+  }
+  return filename;
+}

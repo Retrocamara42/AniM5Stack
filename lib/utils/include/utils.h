@@ -13,6 +13,7 @@
 #define UTILS
 
 #include <M5Stack.h>
+#include <vector>
 
 #define MASK_UINT8 0xFF
 
@@ -36,5 +37,13 @@ void print_little_endian(File file, uint32_t number, uint8_t num_byte);
  *
  */
 void print_zero(File file, uint8_t num_byte);
+
+
+/*
+ * @brief Gets all files in SD card as array
+ *
+ *
+ */
+String getNextFileSD(String currentFile);
 
 #endif

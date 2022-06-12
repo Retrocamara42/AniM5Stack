@@ -20,7 +20,7 @@ TFT_eSprite img = TFT_eSprite(&M5.Lcd);
 * @param imgpath Name of image to be saved or loaded
 *
 */
-SdImageManager::SdImageManager(char *imgpath) : 
+SdImageManager::SdImageManager(String imgpath) : 
             imgpath(imgpath), width(SCREEN_WIDTH), height(SCREEN_HEIGHT),
             image_len(width*height), next(-1){ 
     for(uint16_t i=0; i<SCREEN_WIDTH; i++){ this->row[i]=0; }
@@ -36,6 +36,20 @@ void SdImageManager::start(){
     img.createSprite(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
+/*
+ * @brief Sets the value of imgpath
+ *
+ */
+void SdImageManager::set_imgpath(String imgpath){ this->imgpath=imgpath; }
+
+
+/* 
+ * @brief Gets the value of imgpath 
+ *
+ */
+String SdImageManager::get_imgpath(){
+    return this->imgpath;
+}
 
 /*
  * @brief Gets the value of the current row array
@@ -139,11 +153,11 @@ bool SdImageManager::sd_save_bmp_image(const uint16_t* image){
  * @brief Load next row in loaded image
  *
  */
-void SdImageManager::load_next_row(){
+bool SdImageManager::load_next_row(){
     File file = SD.open(this->imgpath);
     if(!file){
         Serial.println("Failed to open file for reading");
-        return;
+        return 0;
     }
     // Next goes back to 0
     if((++this->next) >= ((int16_t)this->height)){ 
@@ -163,6 +177,7 @@ void SdImageManager::load_next_row(){
         this->row[i] = number;
     }
     file.close();
+    return 1;
 }
 
 
@@ -172,7 +187,7 @@ void SdImageManager::load_next_row(){
  */
 void SdImageManager::show_bmp_image(){
     for(uint16_t i=0; i<this->height; i++){
-        this->load_next_row();
+        if(!this->load_next_row()){ break; }
         img.pushImage(0, this->next, this->width, 1, (uint16_t *)this->row);
     }
     img.pushSprite(0, 0);

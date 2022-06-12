@@ -5,4 +5,5 @@
 .vscode/ipch
 .vscode/
 *.jpg
-*-png
+*.png
+*/secrets.h

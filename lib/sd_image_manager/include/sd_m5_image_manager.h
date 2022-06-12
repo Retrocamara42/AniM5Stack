@@ -24,7 +24,7 @@
 
 class SdImageManager{
     private:
-        char *imgpath;
+        String imgpath;
         uint16_t width;
         uint16_t height;
         uint32_t image_len;
@@ -36,13 +36,18 @@ class SdImageManager{
         * @brief Constructor for class SdImageManager
         * @param imgpath Name of image to be saved or loaded
         */
-        SdImageManager(char *imgpath);
+        SdImageManager(String imgpath);
 
         /*
         * @brief Sets up M5 stack LCD screen
         */
         void start();
 
+        /* @brief Sets the value of imgpath */
+        void set_imgpath(String imgpath);
+
+        /* @brief Gets the value of imgpath */
+        String get_imgpath();
         /* @brief Gets the value of the current row array */
         uint16_t* get_row();
         /* @brief Gets the width of the image */        
@@ -56,7 +61,7 @@ class SdImageManager{
         */
         bool sd_save_bmp_image(const uint16_t* image);
         /* @brief Load next row in loaded image */
-        void load_next_row();
+        bool load_next_row();
         /*
         * @brief Loads image from sd card and shows it 
         * into screen
