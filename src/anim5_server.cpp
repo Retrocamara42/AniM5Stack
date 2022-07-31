@@ -42,44 +42,6 @@ void configureWebServer(AsyncWebServer *server){
       }, handleUpload);
 }
 
-
-String humanReadableSize(uint32_t bytes){
-  if(bytes>=1000000000){
-    return String(bytes/1000000000)+" GB";
-  }
-  else if(bytes>=1000000){
-    return String(bytes/1000000)+" MB";  
-  }
-  else if(bytes>=1000){
-    return String(bytes/1000)+" KB";
-  }
-  else{
-    return String(bytes)+" B";
-  }
-}
-
-String listFiles(){
-  String sDirectory="";
-  File root = SD.open("/");
-  while (true) {
-    File entry =  root.openNextFile();
-    if (! entry) {
-      break;
-    }
-    Serial.print(entry.name());
-    if(entry.isDirectory()) {
-      sDirectory=sDirectory+String(entry.name())+"... Directory\r\n";
-    } else {
-      sDirectory=sDirectory+String(entry.name())+"..."+
-          humanReadableSize(entry.size())+"\r\n";
-    }
-    entry.close();
-    sDirectory+="\r\n";
-  }
-  return sDirectory;
-}
-
-
 String processor(const String& var) {
   if (var == "FILES") {
     return listFiles();
