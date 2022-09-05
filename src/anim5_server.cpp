@@ -1,3 +1,14 @@
+/**
+ * @file anim5_server.cpp
+ * @brief Implementation file of esp32 server related functions
+ *
+ * Contains the implementation of functions related to the instantiation
+ * of an esp32 server to receive uploaded images
+ *
+ * @author Juan Neyra
+ * @date September 4th 2021
+ *
+ */
 #include "anim5_server.h"
 
 
@@ -16,8 +27,6 @@ void handleUpload(AsyncWebServerRequest *request,
       for(size_t i=0; i<len; i++){
         request->_tempFile.write(data[i]);
       }
-      //Serial.println("Downloading file " + filename + " part "+\
-      //        String(index) + " with size " + String(len));
     }
 
     if(final){

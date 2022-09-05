@@ -1,3 +1,15 @@
+/**
+ * @file anim5_server.h
+ * @brief Header file for anim5_server.cpp
+ *
+ * Anim5 Server is an esp32 server used to upload images into Anim5Stack
+ * This file contains the declaration of variables and functions used
+ * for this purpose
+ *
+ * @author Juan Neyra
+ * @date September 4th 2021
+ *
+ */
 #ifndef ANIM5_SERVER
 #define ANIM5_SERVER
 
@@ -59,17 +71,48 @@ const char index_html[] PROGMEM = R"rawliteral(
 )rawliteral";
 
 
-
+/**
+ * @brief Handles the upload of a bmp file to the esp32 server
+ *
+ * Saves a file sent to the server by the client into the SD card.
+ * If the file is too big, the processing is done by parts. Only
+ * bmp files are saved
+ *
+ * @param request AsyncWebServerRequest used to manage SD card writting
+ * @param filename Name of file
+ * @param index Current part number
+ * @param data Data of file
+ * @param len Length of data
+ * @param final True when the current part is the last one
+ * 
+ */
 void handleUpload(AsyncWebServerRequest *request, 
     String filename, size_t index, uint8_t *data, 
     size_t len, bool final);
 
-String humanReadableSize(uint32_t bytes);
-
-String listFiles();
-
+/**
+ * @brief Handles client request to home page
+ *
+ * It adds current list of files and memory storage in SD card
+ * to the html template for the home page
+ *
+ * @param var Placeholder that indicates to which value should
+ *      processor replace it with
+ * 
+ * @returns replacement value
+ * 
+ */
 String processor(const String& var);
 
+/**
+ * @brief Configures esp32 web server
+ *
+ * Configures a home page and a file upload form on the ESP32 web
+ * server
+ *
+ * @param server Server handler
+ * 
+ */
 void configureWebServer(AsyncWebServer *server);
 
 #endif

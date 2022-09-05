@@ -1,3 +1,13 @@
+/**
+ * @file main.cpp
+ * @brief Main entry point to Anim5Stack program
+ *
+ * Anim5Stack program main file
+ *
+ * @author Juan Neyra
+ * @date September 4th 2021
+ *
+ */
 #include "main.h"
 
 #ifndef AWS_SERVER

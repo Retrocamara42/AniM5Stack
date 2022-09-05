@@ -1,3 +1,14 @@
+/**
+ * @file main.h
+ * @brief Header file to program main.cpp
+ *
+ * This file contains the declaration of variables to be used by main
+ * program main.cpp
+ *
+ * @author Juan Neyra
+ * @date September 4th 2021
+ *
+ */
 #ifndef MAIN
 #define MAIN
 
@@ -18,6 +29,5 @@ extern const char iot_client_cert_pem_end[]   asm("_binary_credentials_anim5stac
 
 extern const char iot_key_pem_start[]   asm("_binary_credentials_anim5stack_anim5_private_pem_key_start");
 extern const char iot_key_pem_end[]   asm("_binary_credentials_anim5stack_anim5_private_pem_key_end");
-
 
 #endif
